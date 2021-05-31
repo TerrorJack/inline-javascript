@@ -40,6 +40,10 @@ jobs:
           extraPullNames: niv
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
 
+      - name: cachix-watch-store
+        run: |
+          cachix watch-store asterius
+
       - name: test
         run: |
           for node in nodejs-16_x nodejs-14_x nodejs-12_x nodejs-10_x; do
