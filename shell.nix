@@ -24,7 +24,6 @@ hsPkgs.shellFor {
   nativeBuildInputs = pkgs.lib.attrValues
     (pkgs.haskell-nix.tools toolsGhc {
       brittany = "latest";
-      cabal = "latest";
       cabal-fmt = "latest";
       floskell = "latest";
       ghcid = "latest";
@@ -44,6 +43,7 @@ hsPkgs.shellFor {
       configureArgs = "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
     }).haskell-language-server.components.exes.haskell-language-server
   ] ++ [
+    pkgs.haskell-nix.internal-cabal-install
     (import sources.niv { }).niv
     pkgs.nixfmt
     pkgs.nixpkgs-fmt
