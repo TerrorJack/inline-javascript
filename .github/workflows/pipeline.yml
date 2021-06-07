@@ -243,23 +243,8 @@ jobs:
             ${{ steps.setup-haskell.outputs.stack-root }}
             **/.stack-work
 
-      - name: setup-node-16
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          check-latest: true
-
-      - name: setup-deps
-        run: |
-          npm config set prefix ~/.local
-
-          npm install -g \
-            netlify-cli
-
       - name: build
         run: |
-          export PATH=~/.local/bin:$PATH
-
           stack build --haddock
 
           if [ ! -z "$NETLIFY_AUTH_TOKEN" ]
