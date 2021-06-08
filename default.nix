@@ -1,7 +1,7 @@
 { sources ? import ./nix/sources.nix { }
 , haskellNix ? import sources.haskell-nix { }
 , pkgs ? import sources.nixpkgs haskellNix.nixpkgsArgs
-, ghc ? "ghc8104"
+, ghc ? "ghc8105"
 , node ? "nodejs_latest"
 }:
 pkgs.haskell-nix.cabalProject {

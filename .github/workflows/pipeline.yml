@@ -17,7 +17,7 @@ jobs:
           - macos-latest
         ghc:
           - ghc901
-          - ghc8104
+          - ghc8105
           - ghc884
           - ghc865
     steps:

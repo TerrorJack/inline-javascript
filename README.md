@@ -88,7 +88,7 @@ Supported GHC versions:
 
 - `ghc-8.6`, tested with `ghc-8.6.5`
 - `ghc-8.8`, tested with `ghc-8.8.4`
-- `ghc-8.10`, tested with `ghc-8.10.4`
+- `ghc-8.10`, tested with `ghc-8.10.5`
 - `ghc-9.0`, tested with `ghc-9.0.1`
 
 Supported platforms:
