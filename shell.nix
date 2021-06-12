@@ -21,16 +21,25 @@ hsPkgs.shellFor {
 
   withHoogle = ghc_pre_9;
 
-  nativeBuildInputs = pkgs.lib.attrValues
-    (pkgs.haskell-nix.tools toolsGhc {
-      brittany = "latest";
-      cabal-fmt = "latest";
-      floskell = "latest";
-      ghcid = "latest";
-      hlint = "latest";
-      ormolu = "latest";
-      stylish-haskell = "latest";
-    }) ++ pkgs.lib.optionals ghc_pre_9 [
+  tools =
+    let
+      args = {
+        version = "latest";
+        compiler-nix-name = toolsGhc;
+      };
+    in
+    {
+      brittany = args;
+      cabal-fmt = args;
+      floskell = args;
+      ghcid = args;
+      hlint = args;
+      hoogle = args;
+      ormolu = args;
+      stylish-haskell = args;
+    };
+
+  nativeBuildInputs = pkgs.lib.optionals ghc_pre_9 [
     (pkgs.haskell-nix.cabalProject {
       src = pkgs.fetchFromGitHub {
         owner = "haskell";
@@ -40,11 +49,12 @@ hsPkgs.shellFor {
         fetchSubmodules = true;
       };
       compiler-nix-name = ghc;
-      configureArgs = "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+      configureArgs =
+        "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
     }).haskell-language-server.components.exes.haskell-language-server
   ] ++ [
     pkgs.haskell-nix.internal-cabal-install
-    (import sources.niv { }).niv
+    pkgs.niv
     pkgs.nixfmt
     pkgs.nixpkgs-fmt
     pkgs."${node}"
