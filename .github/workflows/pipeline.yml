@@ -41,7 +41,7 @@ jobs:
 
       - name: cachix-watch-store
         run: |
-          cachix watch-store asterius - &
+          cachix watch-store -c9 asterius &
 
       - name: test
         run: |
