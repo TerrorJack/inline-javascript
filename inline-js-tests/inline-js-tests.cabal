@@ -24,14 +24,17 @@ source-repository head
   type:     git
   location: https://github.com/tweag/inline-js
 
-executable inline-js-tests
+library
+
+test-suite inline-js-tests
+  type:             exitcode-stdio-1.0
   main-is:          inline-js-tests.hs
   other-modules:
     Language.JavaScript.Inline.Tests.Utils.Aeson
     Paths_inline_js_tests
 
   autogen-modules:  Paths_inline_js_tests
-  hs-source-dirs:   app
+  hs-source-dirs:   test
   ghc-options:      -Wall -threaded -rtsopts
   build-depends:
     , aeson

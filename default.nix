@@ -10,12 +10,15 @@ pkgs.haskell-nix.cabalProject {
     src = ./.;
   };
   compiler-nix-name = ghc;
-  modules = [{
-    packages.inline-js-core.preBuild =
-      let nodeSrc = pkgs."${node}";
-      in
-      ''
-        substituteInPlace src/Language/JavaScript/Inline/Core/NodePath.hs --replace '"node"' '"${nodeSrc}/bin/node"'
-      '';
-  }];
+  modules = [
+    {
+      packages.inline-js-core.preBuild =
+        let nodeSrc = pkgs."${node}";
+        in
+        ''
+          substituteInPlace src/Language/JavaScript/Inline/Core/NodePath.hs --replace '"node"' '"${nodeSrc}/bin/node"'
+        '';
+    }
+    { packages.inline-js-tests.testFlags = [ "-j$NIX_BUILD_CORES" ]; }
+  ];
 }
