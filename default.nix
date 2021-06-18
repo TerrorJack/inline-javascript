@@ -11,6 +11,8 @@ pkgs.haskell-nix.cabalProject {
   };
   compiler-nix-name = ghc;
   modules = [
+    { dontPatchELF = false; }
+    { dontStrip = false; }
     {
       packages.inline-js-core.preConfigure =
         let nodeSrc = pkgs."${node}";

@@ -19,13 +19,14 @@ hsPkgs.shellFor {
       inline-js-tests
     ];
 
-  withHoogle = ghc_pre_9;
+  withHoogle = true;
 
   tools =
     let
       args = {
         version = "latest";
         compiler-nix-name = toolsGhc;
+        modules = [{ dontPatchELF = false; } { dontStrip = false; }];
       };
     in
     {
@@ -51,6 +52,7 @@ hsPkgs.shellFor {
       compiler-nix-name = ghc;
       configureArgs =
         "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+      modules = [{ dontPatchELF = false; } { dontStrip = false; }];
     }).haskell-language-server.components.exes.haskell-language-server
   ] ++ [
     pkgs.haskell-nix.internal-cabal-install
