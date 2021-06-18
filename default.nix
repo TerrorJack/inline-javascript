@@ -12,7 +12,7 @@ pkgs.haskell-nix.cabalProject {
   compiler-nix-name = ghc;
   modules = [
     {
-      packages.inline-js-core.preBuild =
+      packages.inline-js-core.preConfigure =
         let nodeSrc = pkgs."${node}";
         in
         ''
