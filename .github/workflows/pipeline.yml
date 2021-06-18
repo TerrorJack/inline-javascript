@@ -52,7 +52,7 @@ jobs:
       - name: test-nix-shell
         run: |
           for node in nodejs-16_x nodejs-14_x nodejs-12_x nodejs-10_x; do
-            nix-shell --keep-going --pure --argstr ghc ${{ matrix.ghc }} --argstr node $node --run "cabal v2-run inline-js-tests -- -j2"
+            nix-shell --keep-going --pure --argstr ghc ${{ matrix.ghc }} --argstr node $node --run "cabal v2-build all && cabal v2-run inline-js-tests -- -j2 && (echo :q | cabal v2-repl inline-js) && cabal-docspec"
           done
 
   cabal:

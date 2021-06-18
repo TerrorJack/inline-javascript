@@ -40,7 +40,26 @@ hsPkgs.shellFor {
       stylish-haskell = args;
     };
 
-  nativeBuildInputs = pkgs.lib.optionals ghc_pre_9 [
+  nativeBuildInputs = [
+    (pkgs.haskell-nix.cabalProject {
+      src = pkgs.applyPatches {
+        src = pkgs.fetchFromGitHub {
+          owner = "phadej";
+          repo = "cabal-extras";
+          rev = "43fe572c3b6fe378be965a37a4a0e1c576296eed";
+          sha256 = "sha256-HlfeS+OocwnEDLhue4qnHDhW0ZVRf4PVvc4V1546nAs=";
+        };
+        patches = [ ./nix/cabal-extras.patch ];
+      };
+      compiler-nix-name = toolsGhc;
+      configureArgs = "--disable-benchmarks --disable-tests";
+      modules = [
+        { dontPatchELF = false; }
+        { dontStrip = false; }
+        { reinstallableLibGhc = true; }
+      ];
+    }).cabal-docspec.components.exes.cabal-docspec
+  ] ++ pkgs.lib.optionals ghc_pre_9 [
     (pkgs.haskell-nix.cabalProject {
       src = pkgs.fetchFromGitHub {
         owner = "haskell";

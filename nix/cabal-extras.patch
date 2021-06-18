@@ -1,0 +1,14 @@
+diff --git a/cabal.project b/cabal.project
+index 36d92a0..0d69f55 100644
+--- a/cabal.project
++++ b/cabal.project
+@@ -36,5 +36,7 @@ constraints: directory     installed
+ constraints: process       installed
+ constraints: transformers  installed
+ 
+-packages: https://oleg.fi/gentle-introduction-2021.2.tar.gz
+--- packages: gentle-introduction-2021.1.tar.gz
++source-repository-package
++  type: git
++  location: https://github.com/phadej/gentle-introduction.git
++  tag: e9457c7ee61ce74fa3b99cc2ab3287876cab4dbb
