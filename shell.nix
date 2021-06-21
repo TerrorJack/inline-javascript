@@ -64,8 +64,8 @@ hsPkgs.shellFor {
       src = pkgs.fetchFromGitHub {
         owner = "haskell";
         repo = "haskell-language-server";
-        rev = "1.2.0";
-        sha256 = "sha256-vNpb/Fjb9sKkt/1r29c82P/NeAXpxQbVKnM/EDWY6z4=";
+        rev = "ghcide-v1.4.0.2";
+        sha256 = "sha256-mzIPZS0Ov+xUhb9i1GeACJm7gUZC9D/avle4pJreLdo=";
         fetchSubmodules = true;
       };
       compiler-nix-name = ghc;
