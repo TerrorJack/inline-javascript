@@ -60,7 +60,7 @@ hsPkgs.shellFor {
       ];
     }).cabal-docspec.components.exes.cabal-docspec
   ] ++ pkgs.lib.optionals ghc_pre_9 [
-    (pkgs.haskell-nix.cabalProject {
+    (pkgs.haskell-nix.cabalProject rec {
       src = pkgs.fetchFromGitHub {
         owner = "haskell";
         repo = "haskell-language-server";
@@ -69,8 +69,11 @@ hsPkgs.shellFor {
         fetchSubmodules = true;
       };
       compiler-nix-name = ghc;
-      configureArgs =
-        "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+      cabalProject = builtins.readFile (if ghc_pre_9 then
+        "${src}/cabal.project"
+      else
+        "${src}/cabal-ghc901.project");
+      configureArgs = "--disable-benchmarks --disable-tests";
       modules = [{ dontPatchELF = false; } { dontStrip = false; }];
     }).haskell-language-server.components.exes.haskell-language-server
   ] ++ [
