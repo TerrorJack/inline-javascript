@@ -28,7 +28,7 @@ jobs:
       - name: setup-nix
         uses: cachix/install-nix-action@v13
         with:
-          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/b27eaa18b47b77fbbf9f3bd7a17046b2d64b637b.tar.gz
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/5c7023e5f051e1f534c5bbac50f0d18320823b28.tar.gz
           extra_nix_config: |
             substituters = https://cache.nixos.org https://hydra.iohk.io
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
