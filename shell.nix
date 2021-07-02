@@ -31,9 +31,6 @@ hsPkgs.shellFor {
     in
     {
       brittany = args;
-      cabal = args // {
-        modules = args.modules ++ [{ reinstallableLibGhc = true; }];
-      };
       cabal-fmt = args;
       floskell = args;
       ghcid = args;
@@ -79,7 +76,13 @@ hsPkgs.shellFor {
       configureArgs = "--disable-benchmarks --disable-tests";
       modules = [{ dontPatchELF = false; } { dontStrip = false; }];
     }).haskell-language-server.components.exes.haskell-language-server
-  ] ++ [ pkgs.niv pkgs.nixfmt pkgs.nixpkgs-fmt pkgs."${node}" ];
+  ] ++ [
+    pkgs.haskell-nix.cabal-install-unchecked."${ghc}"
+    pkgs.niv
+    pkgs.nixfmt
+    pkgs.nixpkgs-fmt
+    pkgs."${node}"
+  ];
 
   exactDeps = true;
 }
