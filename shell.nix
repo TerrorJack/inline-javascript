@@ -1,5 +1,11 @@
 { sources ? import ./nix/sources.nix { }
-, haskellNix ? import sources.haskell-nix { }
+, haskellNix ? import
+    ((import sources.nixpkgs { }).applyPatches {
+      name = "haskell-nix";
+      src = sources.haskell-nix;
+      patches = [ ./nix/haskell-nix.patch ];
+    })
+    { }
 , pkgs ? import sources.nixpkgs haskellNix.nixpkgsArgs
 , ghc ? "ghc8105"
 , toolsGhc ? "ghc8105"
@@ -77,7 +83,7 @@ hsPkgs.shellFor {
       modules = [{ dontPatchELF = false; } { dontStrip = false; }];
     }).haskell-language-server.components.exes.haskell-language-server
   ] ++ [
-    pkgs.haskell-nix.cabal-install-unchecked."${ghc}"
+    pkgs.haskell-nix.internal-cabal-install
     pkgs.niv
     pkgs.nixfmt
     pkgs.nixpkgs-fmt

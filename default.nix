@@ -1,5 +1,11 @@
 { sources ? import ./nix/sources.nix { }
-, haskellNix ? import sources.haskell-nix { }
+, haskellNix ? import
+    ((import sources.nixpkgs { }).applyPatches {
+      name = "haskell-nix";
+      src = sources.haskell-nix;
+      patches = [ ./nix/haskell-nix.patch ];
+    })
+    { }
 , pkgs ? import sources.nixpkgs haskellNix.nixpkgsArgs
 , ghc ? "ghc8105"
 , node ? "nodejs_latest"
