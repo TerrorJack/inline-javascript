@@ -1,4 +1,4 @@
-resolver: lts-18.0
+resolver: lts-18.1
 packages:
   - inline-js
   - inline-js-core
